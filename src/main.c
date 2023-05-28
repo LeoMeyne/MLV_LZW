@@ -15,6 +15,8 @@ int main(int argc, char const *argv[])
     }
 
     encode(input_file, output_file);
+    decode(input_file, output_file);
+
 
     fclose(input_file);
     fclose(output_file);
