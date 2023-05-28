@@ -2,10 +2,18 @@
 #include <stdlib.h>
 
 #include "../include/hash.h"
+#include "../include/decode.h"
 #include "../include/code.h"
 
 int main(int argc, char const *argv[])
 {
+
+    FILE* input_file = fopen("./data/input.txt", "r");
+    FILE* output_file = fopen("./data/output.txt", "w");
+
+    if (input_file == NULL || output_file == NULL) {
+        printf("Failed to open files.\n");
+        return 1;
     FILE* input_file = fopen("./data/input.txt", "r");
     FILE* output_file = fopen("./data/output.txt", "w");
 
@@ -27,9 +35,9 @@ int main(int argc, char const *argv[])
         insert(&list, "yo", i);   
     }
 
-    print_list(list);
+    decode(input_file, output_file);
 
-    printf("%d\n", find(list, "yo"));*/
+    printf("%d\n", find(list, "yo"));
 
     return 0;
 }

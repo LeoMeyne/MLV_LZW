@@ -21,6 +21,17 @@ link* find(link *lst, char word[]){
     return NULL;
 }
 
+link* find_int(link *lst, int code){
+    link* current = lst;
+    while (current != NULL) {
+        if(current->code == code){
+            return current;
+        }
+        current = current->next;
+    }
+    return NULL;
+}
+
 link* allocate_cell(char word[], int code){
     /* Allouer de la mémoire pour la nouvelle cellule */
     link* new_link = (link*)malloc(sizeof(link));
