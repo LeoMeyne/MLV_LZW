@@ -16,7 +16,7 @@ typedef struct _link {
 void insert(List* lst, char word[], int code);
 link* find(link *lst, char word[]);
 link* allocate_cell(char word[], int code);
-void free_list(List l);
-void print_list(List l);
+void free_list(List list);
+void print_list(List list);
 
 #endif

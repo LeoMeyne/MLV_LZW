@@ -36,22 +36,19 @@ link* allocate_cell(char word[], int code){
     return new_link;
 }
 
-void print_list(List l){
-    link* current = l;
+void print_list(List list){
+    link* current = list;
     while (current != NULL) {
         printf("%s %d\n", current->word, current->code);
         current = current->next;
     }
 }
 
-void free_list(List l){
-    while (l != NULL) {
-        link* next = l->next;
-        
-        free(l->word);
-        
-        free(l);
-        
-        l = next;
+void free_list(List list){
+    while (list != NULL) {
+        link* next = list->next;
+        free(list->word);
+        free(list);
+        list = next;
     }
 }
