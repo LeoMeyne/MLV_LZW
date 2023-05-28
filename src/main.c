@@ -13,7 +13,7 @@ int main(int argc, char const *argv[])
 
     print_list(list);
 
-    printf("%d\n", find(list, "yo"));
+    printf("%d\n", find(list, "yo")->code);
 
     return 0;
 }

@@ -10,15 +10,15 @@ void insert(List* lst, char word[], int code) {
     *lst = new_node;
 }
 
-int find(link *lst, char word[]){
+link* find(link *lst, char word[]){
     link* current = lst;
     while (current != NULL) {
         if(strcmp(current->word, word) == 0){
-            return 1;
+            return current;
         }
         current = current->next;
     }
-    return 0;
+    return NULL;
 }
 
 link* allocate_cell(char word[], int code){
