@@ -6,6 +6,8 @@ SRC_DIR = src
 INC_DIR = include
 BIN_DIR = bin
 
+FILE = ./data/output.txt
+
 SRCS = $(wildcard $(SRC_DIR)/*.c)
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(BIN_DIR)/%.o, $(SRCS))
@@ -28,4 +30,4 @@ run: $(EXECUTABLE)
 	@./$(EXECUTABLE)
 
 clean:
-	$(RM) $(OBJS) $(EXECUTABLE)
+	$(RM) $(OBJS) $(EXECUTABLE) $(FILE)
