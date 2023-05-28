@@ -37,6 +37,11 @@
   "C_Cpp_Runner.showCompilationTime": false,
   "files.associations": {
     "hash.h": "c",
-    "code.h": "c"
+    "code.h": "c",
+    "*.tcc": "c",
+    "string": "c",
+    "unordered_map": "c",
+    "string_view": "c",
+    "functional": "c"
   }
 }
