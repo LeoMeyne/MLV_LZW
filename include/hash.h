@@ -1,5 +1,5 @@
+#ifndef HASH_H
 #define HASH_H
-#ifdef HASH_H
 
 typedef struct _link {
     char *word;
