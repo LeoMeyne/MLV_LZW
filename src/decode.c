@@ -4,28 +4,6 @@
 
 #include "../include/hash.h"
 
-
-void initialize_dict(List* dict) {
-    *dict = NULL;
-    int i;
-    for (i = 0; i <= 255; i++) {
-        char c = (char)i;
-
-        char* char_ptr = malloc(2 * sizeof(char)); 
-        if (char_ptr == NULL) {
-            fprintf(stderr, "Erreur d'allocation mémoire\n");
-            exit(1);
-        }
-        char_ptr[0] = c;
-        char_ptr[1] = '\0';
-
-        insert(dict, char_ptr, i);
-    }
-
-    insert(dict, "CLEAR_CODE", 256);
-    insert(dict, "END_CODE", 257);
-}
-
 void write(FILE* file, char* str){
 
 }

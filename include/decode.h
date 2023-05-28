@@ -3,7 +3,6 @@
 
 #include "hash.h"
 
-void initialize_dict(List* list);
 void decode(FILE* input_file, FILE* output_file);
 
 #endif

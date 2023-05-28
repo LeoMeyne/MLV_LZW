@@ -14,12 +14,6 @@ int main(int argc, char const *argv[])
     if (input_file == NULL || output_file == NULL) {
         printf("Failed to open files.\n");
         return 1;
-    FILE* input_file = fopen("./data/input.txt", "r");
-    FILE* output_file = fopen("./data/output.txt", "w");
-
-    if (input_file == NULL || output_file == NULL) {
-        printf("Failed to open files.\n");
-        return 1;
     }
 
     encode(input_file, output_file);
@@ -28,16 +22,6 @@ int main(int argc, char const *argv[])
 
     fclose(input_file);
     fclose(output_file);
-
-    /*List list = NULL;
-    int i;
-    for(i = 0; i < 5; i++){
-        insert(&list, "yo", i);   
-    }
-
-    decode(input_file, output_file);
-
-    printf("%d\n", find(list, "yo"));
 
     return 0;
 }
