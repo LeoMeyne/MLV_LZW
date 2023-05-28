@@ -28,7 +28,6 @@ void initialize_dict(List* dict) {
     insert(dict, "END_CODE", END_CODE);
 }
 
-
 void output(FILE *output_file, int code) {
     fprintf(output_file, "%d ", code);
 }
@@ -44,43 +43,29 @@ void encode(FILE* input_file, FILE* output_file){
     
     char input;
     while (fscanf(input_file, "%c", &input) == 1) {
-        printf("input = %c\n", input);
-        /*char valid_input[256];
-        strncat(valid_input, last_valid, (char)input);*/
         char valid_input[258];
 
         sprintf(valid_input, "%s%c", last_valid, input);
 
-        printf("valid_input = %s\n", valid_input);
-
         link* found = find(dict, valid_input);
         if(found != NULL){
             strcpy(last_valid, valid_input);
-            printf("OUI\n");
         } else {
-            printf("NON\n");
             link *last_valid_entry = find(dict, last_valid);
-            printf("last_valid = %s\n", last_valid);
-            printf("%d\n", last_valid_entry->code);
             output(output_file, last_valid_entry->code);
 
             insert(&dict, valid_input, next_code);
             next_code++; 
 
-            *last_valid = input;
-            printf("last_valid = %s\n", last_valid);
+            strncpy(last_valid, &input, 1);
+            last_valid[1] = '\0'; 
         }
-        printf("_______________\n");
     }   
 
     link* last_valid_entry = find(dict, last_valid);
     output(output_file, last_valid_entry->code);
 
     output(output_file, END_CODE);
-
-
-    /*print_list(dict);*/
-
 
     free_list(dict);
 }
