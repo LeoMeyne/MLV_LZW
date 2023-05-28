@@ -6,7 +6,7 @@ SRC_DIR = src
 INC_DIR = include
 BIN_DIR = bin
 
-SRCS = $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/graphics/*.c)
+SRCS = $(wildcard $(SRC_DIR)/*.c)
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(BIN_DIR)/%.o, $(SRCS))
 
