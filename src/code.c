@@ -12,14 +12,14 @@ void output(FILE *output_file, int code) {
     fprintf(output_file, "%d ", code);
 }
 
-void encode(FILE* input_file, FILE* output_file){
-    List dict;
+void encode(FILE* input_file, BIT_FILE* output_file){
+    List dict = NULL;
     initialize_dict(&dict);
 
     int next_code = 258;
     char last_valid[256] = "";
 
-    output(output_file, CLEAR_CODE);
+    bit_put(output_file, CLEAR_CODE, 9);
     
     char input;
     while (fscanf(input_file, "%c", &input) == 1) {
@@ -32,10 +32,17 @@ void encode(FILE* input_file, FILE* output_file){
             strcpy(last_valid, valid_input);
         } else {
             link *last_valid_entry = find(dict, last_valid);
-            output(output_file, last_valid_entry->code);
-
-            insert(&dict, valid_input, next_code);
-            next_code++; 
+            bit_put(output_file, last_valid_entry->code, 9);
+            
+            if(next_code != 512){
+                insert(&dict, valid_input, next_code);
+                next_code++; 
+            }
+            else{
+                bit_put(output_file, CLEAR_CODE, 9);
+                initialize_dict(&dict);
+                next_code = 258;
+            }
 
             strncpy(last_valid, &input, 1);
             last_valid[1] = '\0'; 
@@ -43,9 +50,9 @@ void encode(FILE* input_file, FILE* output_file){
     }   
 
     link* last_valid_entry = find(dict, last_valid);
-    output(output_file, last_valid_entry->code);
+    bit_put(output_file, last_valid_entry->code, 9);
 
-    output(output_file, END_CODE);
+    bit_put(output_file, END_CODE, 9);
 
     free_list(dict);
 }

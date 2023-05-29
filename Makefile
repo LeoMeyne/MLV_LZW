@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS= -Wall -ansi 
+CFLAGS= -Wall 
 LDFLAGS= -g -lrt -lm
 
 SRC_DIR = src

@@ -65,7 +65,6 @@ void free_list(List list){
 }
 
 void initialize_dict(List* dict) {
-    *dict = NULL;
     int i;
     for (i = 0; i <= 255; i++) {
         char c = (char)i;

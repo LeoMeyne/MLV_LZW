@@ -1,19 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
+
 
 #include "../include/hash.h"
+#include "../include/bit_io.h"
 
-void decode(FILE* input_file, FILE* output_file){
+void decode(BIT_FILE* input_file, FILE* output_file){
     List dict = NULL;
-    int code;
+    uint32_t code;
 
     int next_code;
     char* last_valid;
     char* seq;
 
-    while(fscanf(input_file, "%d", &code) == 1){
-
+    while(bit_get(input_file, &code, 9) != EOF){
+        
         if(code == 256){
             initialize_dict(&dict);
             next_code = 258;
