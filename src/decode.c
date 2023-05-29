@@ -4,10 +4,6 @@
 
 #include "../include/hash.h"
 
-void write(FILE* file, char* str){
-
-}
-
 void decode(FILE* input_file, FILE* output_file){
     List dict = NULL;
     int code;
