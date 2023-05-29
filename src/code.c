@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 #include "../include/code.h"
 #include "../include/hash.h"
@@ -18,6 +19,9 @@ void encode(FILE* input_file, BIT_FILE* output_file){
 
     int next_code = 258;
     char last_valid[256] = "";
+    int min_code_size = 9;
+    int max_code_size = 12;
+    int current_code_size = min_code_size + 1;
 
     bit_put(output_file, CLEAR_CODE, 9);
     
@@ -34,12 +38,17 @@ void encode(FILE* input_file, BIT_FILE* output_file){
             link *last_valid_entry = find(dict, last_valid);
             bit_put(output_file, last_valid_entry->code, 9);
             
-            if(next_code != 512){
+            if(next_code != (2^current_code_size) && current_code_size == max_code_size){
                 insert(&dict, valid_input, next_code);
-                next_code++; 
+                next_code++;
+
+                if( next_code == (2^(current_code_size+1))){
+                    current_code_size ++;
+                }
             }
             else{
                 bit_put(output_file, CLEAR_CODE, 9);
+                current_code_size = min_code_size+1;
                 initialize_dict(&dict);
                 next_code = 258;
             }

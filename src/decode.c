@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <math.h>
 
 
 #include "../include/hash.h"
@@ -12,11 +13,15 @@ void decode(BIT_FILE* input_file, FILE* output_file){
     uint32_t code;
 
     int next_code;
+    int min_code_size = 9;
+    int max_code_size = 12;
+    int current_code_size = min_code_size + 1;
+
     char* last_valid;
     char* seq;
 
     while(bit_get(input_file, &code, 9) != EOF){
-        
+
         if(code == 256){
             initialize_dict(&dict);
             next_code = 258;
@@ -39,8 +44,6 @@ void decode(BIT_FILE* input_file, FILE* output_file){
         }
 
         fprintf(output_file, "%s", seq);
-        fprintf(output_file, "%s", " ");
-
 
         if(strcmp(last_valid, "") != 0){
 
@@ -48,7 +51,11 @@ void decode(BIT_FILE* input_file, FILE* output_file){
             str[0] = seq[0];
             str[1] = '\0';
             insert(&dict,strcat(last_valid, str), next_code);
-            next_code ++; 
+            next_code ++;
+
+            if(next_code == (2^ max_code_size)){
+                current_code_size++;
+            }
         }
 
         last_valid = seq;
