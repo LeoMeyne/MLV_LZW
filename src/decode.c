@@ -2,10 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../include/linkedList.h"
+#include "../include/hash.h"
 
-/*void decode(FILE* input_file, FILE* output_file){
-    List dict = NULL;
+#define USECODE 0
+
+void decode(FILE* input_file, FILE* output_file){
+   table* dict = create_table(50);
     int code;
 
     int next_code = 258;
@@ -15,7 +17,7 @@
     while(fscanf(input_file, "%d", &code) == 1){
 
         if(code == 256){
-            initialize_dict(&dict);
+            initialize_dict(dict, USECODE);
             next_code = 258;
             last_valid = NULL;
             continue;
@@ -25,11 +27,11 @@
             break;
         }
 
-        if(find_int(dict, code) != NULL){
-            char* found = find_int(dict, code)->word;
+        if(find(dict, &code, USECODE) != NULL){
+            char* found = find(dict, &code, USECODE)->word;
             seq = malloc((strlen(found) + 1) * sizeof(char));
             strcpy(seq, found);
-        }
+        } 
         else{
             char str[2];
             str[0] = last_valid[0];
@@ -45,7 +47,7 @@
             char str[2];
             str[0] = seq[0];
             str[1] = '\0';
-            insert(&dict,strcat(last_valid, str), next_code);
+            insert(dict,strcat(last_valid, str), next_code, USECODE);
             next_code ++; 
         }
 
@@ -53,4 +55,4 @@
     }
 
     free(dict);
-}   */
+} 

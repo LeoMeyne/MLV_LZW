@@ -83,21 +83,25 @@ unsigned hash_code(int code, int number) {
 }
 
 /* Cherche la présence d'un élément dans une liste chaînées */
-link* find(table *tab, char word[], int useCode){
+link* find(table *tab, void * word, int useCode){
     unsigned index;
     if(useCode == 0){
-        index = hash_code(atoi(word), tab->M);
+        int wordInt = *(int*)word;
+        index = hash_code(wordInt, tab->M);
     }else{
-        index = hash_word(word, tab->M);
+        char* wordChar = (char*)word;
+        index = hash_word(wordChar, tab->M);
     }
     link* current =  tab->buckets[index];
     while (current != NULL) {
         if (useCode == 0) {
-            if (current->code == atoi(word)) {
+            int wordInt = *(int*)word;
+            if (current->code == wordInt) {
                 return current;
             }
         } else {
-            if (strcmp(current->word, word) == 0) {
+            char* wordChar = (char*)word;
+            if (strcmp(current->word, wordChar) == 0) {
                 return current;
             }
         }
@@ -105,7 +109,6 @@ link* find(table *tab, char word[], int useCode){
     }
     return NULL;
 }
-
 
 /* Insérer un élément dans la table de hachage */
 void insert(table* tab, char word[], int code, int useCode){

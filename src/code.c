@@ -15,7 +15,7 @@ void output(FILE *output_file, int code) {
 }
 
 void encode(FILE* input_file, FILE* output_file){
-    table* dict = create_table(5);
+    table* dict = create_table(50);
     initialize_dict(dict, USECODE);
 
     /*display_table(dict);*/

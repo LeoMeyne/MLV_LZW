@@ -4,7 +4,6 @@
 #include "../include/hash.h"
 #include "../include/code.h"
 #include "../include/decode.h"
-#include "../include/linkedList.h"
 
 int main(int argc, char const *argv[])
 {
@@ -16,8 +15,8 @@ int main(int argc, char const *argv[])
         return 1;
     }
 
-    encode(input_file, output_file);
-    /*decode(input_file, output_file);*/
+    /*encode(input_file, output_file);*/
+    decode(input_file, output_file);
 
     fclose(input_file);
     fclose(output_file);
