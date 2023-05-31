@@ -21,6 +21,17 @@ link* find(link *lst, char word[]){
     return NULL;
 }
 
+link* find_int(link *lst, int code){
+    link* current = lst;
+    while (current != NULL) {
+        if(current->code == code){
+            return current;
+        }
+        current = current->next;
+    }
+    return NULL;
+}
+
 link* allocate_cell(char word[], int code){
     /* Allouer de la mémoire pour la nouvelle cellule */
     link* new_link = (link*)malloc(sizeof(link));
@@ -51,4 +62,24 @@ void free_list(List list){
         free(list);
         list = next;
     }
+}
+
+void initialize_dict(List* dict) {
+    *dict = NULL;
+    int i;
+    for (i = 0; i <= 255; i++) {
+        char c = (char)i;
+
+        char* char_ptr = malloc(2 * sizeof(char)); 
+        if (char_ptr == NULL) {
+            fprintf(stderr, "Erreur d'allocation mémoire\n");
+            exit(1);
+        }
+        char_ptr[0] = c;
+        char_ptr[1] = '\0';
+
+        insert(dict, char_ptr, i);
+    }
+    insert(dict, "CLEAR_CODE", 256);
+    insert(dict, "END_CODE", 257);
 }
