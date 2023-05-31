@@ -21,11 +21,7 @@ void display_list(link *lst);
 
 void display_table(table *t);
 
-void free_link(link *lnk);
-
-void free_list(link *lst);
-
-link* find(table* tab, char* key, int useCode);
+link* find(table *tab, char word[], int useCode);
 
 void insert(table* tab, char word[], int code, int useCode);
 

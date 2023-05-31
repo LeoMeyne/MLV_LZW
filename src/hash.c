@@ -25,19 +25,6 @@ table *create_table(int M){
     return t;
 }
 
-/*void free_link(link *lnk) {
-    free(lnk->word);
-    free(lnk);
-}
-
-void free_list(link *lst) {
-    while (lst) {
-        link *tmp = lst;
-        lst = lst->next;
-        free_link(tmp);
-    }
-}*/
-
 void free_table(table* t) {
     if (t == NULL) {
         return;
@@ -46,10 +33,11 @@ void free_table(table* t) {
     int i;
     for (i = 0; i < t->M; i++) {
         link* current = t->buckets[i];
-        while (current != NULL) {
-            link* next = current->next;
-            free(current);
-            current = next;
+        while (current) {
+            link *tmp = current;
+            current = current->next;
+            free(tmp->word);
+            free(tmp);
         }
     }
 
