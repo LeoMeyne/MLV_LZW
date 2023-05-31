@@ -5,17 +5,22 @@
 
 #include "../include/code.h"
 #include "../include/hash.h"
+#include "../include/bit_io.h"
 
 #define CLEAR_CODE 256
 #define END_CODE 257
+
+#define USECODE 1
 
 void output(FILE *output_file, int code) {
     fprintf(output_file, "%d ", code);
 }
 
 void encode(FILE* input_file, BIT_FILE* output_file){
-    List dict = NULL;
-    initialize_dict(&dict);
+    table* dict = create_table(50);
+    initialize_dict(dict, USECODE);
+
+    /*display_table(dict);*/
 
     int next_code = 258;
     char last_valid[256] = "";
@@ -31,25 +36,25 @@ void encode(FILE* input_file, BIT_FILE* output_file){
 
         sprintf(valid_input, "%s%c", last_valid, input);
 
-        link* found = find(dict, valid_input);
+        link* found = find(dict, valid_input, USECODE);
         if(found != NULL){
             strcpy(last_valid, valid_input);
         } else {
-            link *last_valid_entry = find(dict, last_valid);
+            link *last_valid_entry = find(dict, last_valid, USECODE);
             bit_put(output_file, last_valid_entry->code, 9);
-            
+
+
             if(next_code != (2^current_code_size) && current_code_size == max_code_size){
-                insert(&dict, valid_input, next_code);
-                next_code++;
+                insert(dict, valid_input, next_code, USECODE);
+                next_code++; 
 
                 if( next_code == (2^(current_code_size+1))){
                     current_code_size ++;
                 }
-            }
-            else{
+            }else{
                 bit_put(output_file, CLEAR_CODE, 9);
                 current_code_size = min_code_size+1;
-                initialize_dict(&dict);
+                initialize_dict(dict, USECODE);
                 next_code = 258;
             }
 
@@ -58,10 +63,10 @@ void encode(FILE* input_file, BIT_FILE* output_file){
         }
     }   
 
-    link* last_valid_entry = find(dict, last_valid);
+    link* last_valid_entry = find(dict, last_valid, USECODE);
     bit_put(output_file, last_valid_entry->code, 9);
 
     bit_put(output_file, END_CODE, 9);
-
-    free_list(dict);
+    
+    free_table(dict);
 }

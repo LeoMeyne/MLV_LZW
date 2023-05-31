@@ -19,8 +19,6 @@ int main(int argc, char const *argv[])
 
     BIT_FILE* encoding_bin = bit_begin(encoding_file);
 
-
-
     encode(input_file, encoding_bin);
 
     fclose(input_file);

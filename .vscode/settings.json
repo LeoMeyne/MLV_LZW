@@ -42,6 +42,13 @@
     "string": "c",
     "unordered_map": "c",
     "string_view": "c",
-    "functional": "c"
+    "functional": "c",
+    "string.h": "c",
+    "system_error": "c",
+    "array": "c",
+    "tuple": "c",
+    "type_traits": "c",
+    "utility": "c",
+    "bit_io.h": "c"
   }
 }

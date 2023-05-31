@@ -1,4 +1,5 @@
 #include "../include/bit_io.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
 
@@ -7,7 +8,7 @@ BIT_FILE *bit_begin(FILE *f) {
     bf->fp = f;
     bf->buffer = 0;
     bf->bufpos = 0;
-    bf->status = 0;
+    bf->status = 0; 
     bf->nb_bytes = 0;
     return bf;
 }
@@ -29,17 +30,17 @@ int bit_eof(BIT_FILE *bf) {
 
 void bit_put(BIT_FILE *bf, uint32_t data, int nbits) {
 
-    // add bits to the buffer
+    /* add bits to the buffer */
     bf->buffer |= (data << bf->bufpos);
     bf->bufpos += nbits;
 
-    // write full bytes from the buffer to the stream
+    /* write full bytes from the buffer to the stream */
     while (bf->bufpos >= 8) {
         uint8_t byte = bf->buffer & 0xff;
         putc(byte, bf->fp);
         bf->nb_bytes++;
 
-        // remove byte from buffer and adjust bufpos
+        /* remove byte from buffer and adjust bufpos*/
         bf->buffer >>= 8;
         bf->bufpos -= 8;
     }
@@ -47,7 +48,7 @@ void bit_put(BIT_FILE *bf, uint32_t data, int nbits) {
 
 void bit_flush(BIT_FILE *bf) {
 
-    // write final bits padded with 0s to a full byte
+    /* write final bits padded with 0s to a full byte */
     if (bf->bufpos != 0) {
         uint8_t byte = bf->buffer & 0xff;
         putc(byte, bf->fp);
@@ -79,7 +80,7 @@ int bit_get(BIT_FILE *bf, uint32_t *data, int nbits) {
 
     *data = bf->buffer & ((INT64_C(1) << extracted)-1);
 
-    // remove bits from buffer and adjust bufpos
+    /* remove bits from buffer and adjust bufpos :*/
     bf->buffer >>= extracted;
     bf->bufpos -= extracted;
 
