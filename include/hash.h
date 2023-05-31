@@ -7,18 +7,30 @@ typedef struct _link {
     struct _link *next;
 } link, *List;
 
-/*typedef struct _table {
+typedef struct _table {
     link **buckets;
     int M; 
     int size;
-} table;*/
+} table;
 
-void insert(List* lst, char word[], int code);
-link* find(link *lst, char word[]);
-link* find_int(link *lst, int code);
-link* allocate_cell(char word[], int code);
-void free_list(List list);
-void print_list(List list);
-void initialize_dict(List* dict);
+link *create_link(link *lst, char word[], int code);
+
+table *create_table(int M);
+
+void display_list(link *lst);
+
+void display_table(table *t);
+
+void free_link(link *lnk);
+
+void free_list(link *lst);
+
+link* find(table* tab, char* key, int useCode);
+
+void insert(table* tab, char word[], int code, int useCode);
+
+void initialize_dict(table* dict, int useCode);
+
+void free_table(table* t) ;
 
 #endif

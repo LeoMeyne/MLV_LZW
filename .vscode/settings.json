@@ -42,6 +42,7 @@
     "string": "c",
     "unordered_map": "c",
     "string_view": "c",
-    "functional": "c"
+    "functional": "c",
+    "string.h": "c"
   }
 }

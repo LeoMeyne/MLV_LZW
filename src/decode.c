@@ -2,13 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../include/hash.h"
+#include "../include/linkedList.h"
 
-void write(FILE* file, char* str){
-
-}
-
-void decode(FILE* input_file, FILE* output_file){
+/*void decode(FILE* input_file, FILE* output_file){
     List dict = NULL;
     int code;
 
@@ -57,4 +53,4 @@ void decode(FILE* input_file, FILE* output_file){
     }
 
     free(dict);
-}   
+}   */
