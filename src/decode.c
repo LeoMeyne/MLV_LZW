@@ -1,20 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
+#include <math.h>
 
 #include "../include/hash.h"
+#include "../include/bit_io.h"
 
 #define USECODE 0
 
-void decode(FILE* input_file, FILE* output_file){
-   table* dict = create_table(50);
-    int code;
+void decode(BIT_FILE* input_file, FILE* output_file){
+    table* dict = create_table(50);
+    uint32_t code;
 
     int next_code = 258;
+    int min_code_size = 9;
+    int max_code_size = 12;
+    int current_code_size = min_code_size + 1;
+
     char* last_valid = NULL;
     char* seq = NULL;
 
-    while(fscanf(input_file, "%d", &code) == 1){
+    while(bit_get(input_file, &code, 9) != EOF){
 
         if(code == 256){
             initialize_dict(dict, USECODE);
@@ -40,8 +47,6 @@ void decode(FILE* input_file, FILE* output_file){
         }
 
         fprintf(output_file, "%s", seq);
-        fprintf(output_file, "%s", "");
-
 
         if(last_valid != NULL){
             char str[2];
@@ -49,6 +54,9 @@ void decode(FILE* input_file, FILE* output_file){
             str[1] = '\0';
             insert(dict,strcat(last_valid, str), next_code, USECODE);
             next_code ++; 
+            if(next_code == (2^ max_code_size)){
+                current_code_size++;
+            }
         }
 
         last_valid = seq;

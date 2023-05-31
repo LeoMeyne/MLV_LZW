@@ -48,6 +48,7 @@
     "array": "c",
     "tuple": "c",
     "type_traits": "c",
-    "utility": "c"
+    "utility": "c",
+    "bit_io.h": "c"
   }
 }
