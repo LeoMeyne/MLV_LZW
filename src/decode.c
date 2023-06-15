@@ -16,12 +16,12 @@ void decode(BIT_FILE* input_file, FILE* output_file){
     int next_code = 258;
     int min_code_size = 9;
     int max_code_size = 12;
-    int current_code_size = min_code_size + 1;
+    int current_code_size = min_code_size;
 
     char* last_valid = NULL;
     char* seq = NULL;
 
-    while(bit_get(input_file, &code, 9) != EOF){
+    while(bit_get(input_file, &code, current_code_size) != EOF){
 
         if(code == 256){
             initialize_dict(dict, USECODE);
